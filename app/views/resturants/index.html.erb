@@ -1,0 +1,43 @@
+<h1>Listing resturants</h1>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Tel</th>
+    <th>Lat</th>
+    <th>Lng</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+<% count = 1 %>
+<% markerstring = "" %>
+<% @resturants.each do |resturant| %>
+  <tr>
+    <td>(<%= count %>) <%= resturant.name %></td>
+    <td><%= resturant.address %></td>
+    <td><%= resturant.tel %></td>
+    <td><%= resturant.lat %></td>
+    <td><%= resturant.lng %></td>
+    <td><%= link_to 'Show', resturant %></td>
+    <td><%= link_to 'Edit', edit_resturant_path(resturant) %></td>
+    <td><%= link_to 'Destroy', resturant, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+  <% markerstring += '&markers=color:blue|label:R|' %>
+  <% markerstring += resturant.lat %>
+  <% markerstring += ',' %>
+  <% markerstring += resturant.lng %>
+
+  <% count = count + 1 %>
+<% end %>
+
+</table>
+
+<br />
+
+<%= link_to 'New Resturant', new_resturant_path %>
+<div>
+  <img src="http://maps.google.com/maps/api/staticmap?size=900x900&sensor=true<%= strip_tags(markerstring) %>" />
+</div>
+
+
