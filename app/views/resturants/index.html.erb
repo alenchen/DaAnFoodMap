@@ -13,6 +13,7 @@
 <% count = 0 %>
 <% marker_string_lat = Array.new %>
 <% marker_string_lng = Array.new %>
+<% marker_string_name = Array.new %>
 <% @resturants.each do |resturant| %>
   <tr>
     <td>(<%= (count+1).to_s %>) <%= resturant.name %></td>
@@ -26,6 +27,7 @@
   </tr>
   <% marker_string_lat[count] = resturant.lat %>
   <% marker_string_lng[count] = resturant.lng %>
+  <% marker_string_name[count] = resturant.name %>
   <% count = count + 1 %>
 <% end %>
 
@@ -39,15 +41,17 @@
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript">
   var map;
-  var stores = [];
+  var stores = [][3];
   stores = [
 <% count.times do |t| %>
-    new google.maps.LatLng(<%= marker_string_lat[t]%>,<%= marker_string_lng[t] %>)<%= "," if t < (count - 1) %>
+    [ <%= marker_string_lat[t]%>, <%= marker_string_lng[t] %>, '<%= marker_string_name[t] %>' ]<%= "," if t < (count - 1) %>
 <% end %>
   ];
 
   var markers = [];
   var iterator = 0;
+
+  var image = new google.maps.MarkerImage('images/restaurant_blue_32.png', new google.maps.Size(32,32), new google.maps.Point(0,0), new google.maps.Point(0, 32));
 
   function initialize() {
     var myOptions = {
@@ -84,10 +88,13 @@
   }
   
   function addMarker() {
+  	var LatLng = new google.maps.LatLng(stores[iterator][0], stores[iterator][1]);
   	markers.push(new google.maps.Marker({
-  		position: stores[iterator],
+  		position: LatLng,
   		map: map,
+  		icon: image,
   		draggable: false,
+  		title: stores[iterator][2],
   		animation: google.maps.Animation.DROP
   	}));
   	iterator++;
