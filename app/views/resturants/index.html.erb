@@ -10,11 +10,12 @@
     <th></th>
     <th></th>
   </tr>
-<% count = 1 %>
-<% markerstring = "" %>
+<% count = 0 %>
+<% marker_string_lat = Array.new %>
+<% marker_string_lng = Array.new %>
 <% @resturants.each do |resturant| %>
   <tr>
-    <td>(<%= count %>) <%= resturant.name %></td>
+    <td>(<%= (count+1).to_s %>) <%= resturant.name %></td>
     <td><%= resturant.address %></td>
     <td><%= resturant.tel %></td>
     <td><%= resturant.lat %></td>
@@ -23,11 +24,8 @@
     <td><%= link_to 'Edit', edit_resturant_path(resturant) %></td>
     <td><%= link_to 'Destroy', resturant, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
-  <% markerstring += '&markers=color:blue|label:R|' %>
-  <% markerstring += resturant.lat %>
-  <% markerstring += ',' %>
-  <% markerstring += resturant.lng %>
-
+  <% marker_string_lat[count] = resturant.lat %>
+  <% marker_string_lng[count] = resturant.lng %>
   <% count = count + 1 %>
 <% end %>
 
@@ -36,8 +34,63 @@
 <br />
 
 <%= link_to 'New Resturant', new_resturant_path %>
-<div>
-  <img src="http://maps.google.com/maps/api/staticmap?size=900x900&sensor=true<%= strip_tags(markerstring) %>" />
-</div>
+<div id="map_canvas"></div>
 
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript">
+  var map;
+  var stores = [];
+  stores = [
+<% count.times do |t| %>
+    new google.maps.LatLng(<%= marker_string_lat[t]%>,<%= marker_string_lng[t] %>),
+<% end %>
+  ];
 
+  var markers = [];
+  var iterator = 0;
+
+  function initialize() {
+    var myOptions = {
+      zoom: 16,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+      	function(position) {
+      	  var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      	  map.setCenter(pos); 
+      	}, function() {
+      	  handleNoGeolocation(true);
+      	}
+      );
+    } else {
+      handleNoGeolocation(false);
+    }
+    drop();
+  }
+  
+  function handleNoGeolocation(errorFlag) {
+  	//use default location
+  	map.setCenter(new google.maps.LatLng(25.025, 121.54));
+  }
+  
+  function drop() {
+  	for (var i = 0; i < stores.length; i++) {
+  	  setTimeout(function() {
+  	  	addMarker();
+  	  }, i*500);
+  	}
+  }
+  
+  function addMarker() {
+  	markers.push(new google.maps.Marker({
+  		position: stores[iterator],
+  		map: map,
+  		draggable: false,
+  		animation: google.maps.Animation.DROP
+  	}));
+  	iterator++;
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>

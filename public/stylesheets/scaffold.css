@@ -1,5 +1,7 @@
 body { background-color: #fff; color: #333; }
 
+html, body { margin: 0; padding: 0; height: 80%; }
+
 body, p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size:   13px;
@@ -53,4 +55,11 @@ div.field, div.actions {
 #error_explanation ul li {
   font-size: 12px;
   list-style: square;
+}
+
+#map_canvas {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 60%;
 }
