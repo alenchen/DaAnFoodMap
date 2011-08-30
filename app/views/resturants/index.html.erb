@@ -42,7 +42,7 @@
   var stores = [];
   stores = [
 <% count.times do |t| %>
-    new google.maps.LatLng(<%= marker_string_lat[t]%>,<%= marker_string_lng[t] %>),
+    new google.maps.LatLng(<%= marker_string_lat[t]%>,<%= marker_string_lng[t] %>)<%= "," if t < (count - 1) %>
 <% end %>
   ];
 
@@ -51,7 +51,7 @@
 
   function initialize() {
     var myOptions = {
-      zoom: 16,
+      zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
