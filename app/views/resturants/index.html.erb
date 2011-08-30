@@ -10,8 +10,7 @@
   	<td>(<%= (count+1).to_s %>) <%= resturant.name %></td><td><%= resturant.tel %></td>
   </tr>
   <tr>
-  	<td><%= link_to '詳細資訊', resturant %> <%= link_to '編輯', edit_resturant_path(resturant) %> <%= link_to '剛除', resturant, :confirm => '確定嗎?', :method => :delete %></td>
-    <td><%= resturant.address %></td>
+  	<td colspan="2"><%= link_to '詳細資訊', resturant %> <%= link_to '編輯', edit_resturant_path(resturant) %> <%= link_to '剛除', resturant, :confirm => '確定嗎?', :method => :delete %> <%= resturant.address %></td>
   </tr>
     <% marker_string_lat[count] = resturant.lat %>
     <% marker_string_lng[count] = resturant.lng %>

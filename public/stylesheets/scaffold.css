@@ -1,6 +1,6 @@
 body { background-color: #fff; color: #333; }
 
-html, body { margin: 0; padding: 0; height: 100%; width: 100%}
+html, body { margin: 0; padding: 0; height: 100%; width: 1024px}
 
 body, p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
@@ -61,10 +61,10 @@ div.field, div.actions {
   margin: 0;
   padding: 0;
   height: 100%;
-  width: 60%;
+  width: 600px;
 }
 
 #store_list {
   float: right;
-  width: 40%"
+  width: 400px;
 }
