@@ -1,6 +1,6 @@
 body { background-color: #fff; color: #333; }
 
-html, body { margin: 0; padding: 0; height: 80%; }
+html, body { margin: 0; padding: 0; height: 100%; width: 100%}
 
 body, p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
@@ -62,4 +62,9 @@ div.field, div.actions {
   padding: 0;
   height: 100%;
   width: 60%;
+}
+
+#store_list {
+  float: right;
+  width: 40%"
 }
