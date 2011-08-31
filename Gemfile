@@ -28,4 +28,6 @@ gem 'sqlite3'
 # and rake tasks are available in development mode:
 # group :development, :test do
 #   gem 'webrat'
-# end
+# endi
+
+gem 'compass','>=0.11.5'
