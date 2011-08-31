@@ -10,7 +10,7 @@
   	<td>(<%= (count+1).to_s %>) <%= resturant.name %></td><td><%= resturant.tel %></td>
   </tr>
   <tr>
-  	<td colspan="2"><%= link_to '詳細資訊', resturant %> <%= link_to '編輯', edit_resturant_path(resturant) %> <%= link_to '剛除', resturant, :confirm => '確定嗎?', :method => :delete %> <%= resturant.address %></td>
+  	<td colspan="2"><%= link_to '詳細資訊', resturant %> <%= link_to '編輯', edit_resturant_path(resturant) %> <%= link_to '刪除', resturant, :confirm => '確定嗎?', :method => :delete %> <%= resturant.address %></td>
   </tr>
     <% marker_string_lat[count] = resturant.lat %>
     <% marker_string_lng[count] = resturant.lng %>
@@ -75,14 +75,14 @@
   }
 
   function addPeopleMarker(pos) {
-  	markers.push(new google.maps.Marker({
+  	var marker = new google.maps.Marker({
   		position: pos,
   		map: map,
   		icon: image_man,
   		draggable: false,
-  		title: 'I\'m here',
+  		title: 'I\'m here!',
   		animation: google.maps.Animation.DROP
-  	}));
+  	});
   }
 
   function addCircles(lat, lng) {
