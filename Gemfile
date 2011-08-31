@@ -30,4 +30,4 @@ gem 'sqlite3'
 #   gem 'webrat'
 # endi
 
-gem 'compass','>=0.11.5'
+gem 'compass'
