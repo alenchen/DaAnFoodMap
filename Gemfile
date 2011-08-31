@@ -31,3 +31,4 @@ gem 'sqlite3'
 # endi
 
 gem 'compass'
+gem 'haml'
